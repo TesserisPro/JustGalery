@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="content/bootstrap.min.css" rel="stylesheet" />
+    <link href="content/application.css" rel="stylesheet" />
+    <link href="content/font-awesome.css" rel="stylesheet" />
+    <script src="scripts/knockout-3.3.0.js"></script>
+    <script src="scripts/knockout.mapping-latest.js"></script>
+    <script src="scripts/local.js"></script>
+    <script src="scripts/jquery-1.9.1.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="ViewModels/MainViewModel.js"></script>
+    <script src="scripts/splitter.js"></script>
+    <script src="scripts/tags.js"></script>
+</head>
+<body oncontextmenu="return false">
+    <div id="root">
+        <div data-bind="visible: progress() >= 0" class="progress-container">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-bind="style: {width: (progress() + '%')}, text: (progress() + '%')" style="width: 100%;">
+                    100%
+                </div>
+            </div>
+        </div>
+        <div id="ribbon">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Home</a></li>
+                <li data-bind="visible: images().length > 0" role="presentation"><a href="#file" aria-controls="view" role="tab" data-toggle="tab">File</a></li>
+                <li role="presentation"><a href="#view" aria-controls="view" role="tab" data-toggle="tab">View</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="home">
+                    <section>
+                        <div data-bind="click: open" class="btn btn-default">
+                            <div class="fa fa-folder-open-o"></div>
+                            <header>Open Folder</header>
+                        </div>
+                        <header data-bind="local: 'Folder'"></header>
+                    </section><section>
+                        <!-- ko foreach: treeProviders -->
+                        <div data-bind="click: function(){ $root.setTreeProvider($data); }, css:{selected: $root.activeTreeProvider() == $data }" class="btn btn-default">
+                            <div data-bind="css: $root.treeProviderIcons[$data]"></div>
+                            <header data-bind="local: $data"></header>
+                        </div>
+                        <!-- /ko -->
+                        <header data-bind="local: 'Group By'"></header>
+                    </section><section data-bind="visible: singleImageMode">
+                        <div data-bind="click: previous" class="btn btn-default">
+                            <div class="fa fa-arrow-left"></div>
+                            <header data-bind="local: 'Previous'"></header>
+                        </div>
+                        <div data-bind="click: next" class="btn btn-default">
+                            <div class="fa fa-arrow-right"></div>
+                            <header data-bind="local: 'Next'"></header>
+                        </div>
+                        <header data-bind="local: 'Navigation'"></header>
+                    </section><section data-bind="visible: images().length > 0">
+                        <div style="margin-top: 2px;" data-bind="tags: {items: tags, add: function(t){addTag(t);}, remove: function(t){removeTag(t);}}"></div>
+                        <header data-bind="local: 'Tags'"></header>
+                    </section>
+                </div>
+                <div data-bind="visible: images().length > 0" role="tabpanel" class="tab-pane" id="file">
+                    <section>
+                        <div data-bind="click: function(){ deleteFiles(); }" class="btn btn-default">
+                            <div class="fa fa-trash-o"></div>
+                            <header>Delete</header>
+                        </div>
+                        <header data-bind="local: 'File'"></header>
+                    </section>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="view">
+                   <section>
+                        <div data-bind="click: fullScreen" class="btn btn-default">
+                            <div class="fa fa-arrows-alt"></div>
+                            <header>Togle Full Screen</header>
+                        </div>
+                        <div data-bind="click: exit" class="btn btn-default">
+                            <div class="fa fa-sign-out"></div>
+                            <header>Exit</header>
+                        </div>
+                        <header>View</header>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <div class="column full-height" id="navigation">
+                <script type="text/html" id="navigation-item-template">
+                    <div class="tree-item-header" data-bind="css: {selected: $root.selectedItem() && $root.selectedItem().Id() == $data.Id()}">
+                        <span class="selection"></span>
+                        <!--<span data-bind="text: Children().length" class="pull-right"></span>-->
+                        <span data-bind="click: function(x){ x.Expanded(!x.Expanded()); }, visible: Children().length > 0, css: {'glyphicon-plus': !Expanded(), 'glyphicon-minus': Expanded()}" class="glyphicon"></span>
+                        <span data-bind="click: function(){ $root.selectItem($data.Id()); }" class="header">
+                            <!-- ko if: Type()!='Raiting' -->
+                            <span data-bind="css: {'glyphicon-file': Type() == 'Image', 'glyphicon-folder-open': Type() == 'Folder', 'glyphicon-tags': Type() == 'Tag' }"
+                                    class="glyphicon"></span>
+                            <span data-bind="text: Title"></span>
+                            <!-- /ko -->
+                            <!-- ko if: Type()=='Raiting' -->
+                            <span class="raiting">
+                                <span data-bind="css: { 'fa-star-o': Title() < 1, 'fa-star': Title() >= 1 }" class="fa"></span>
+                                <span data-bind="css: { 'fa-star-o': Title() < 2, 'fa-star': Title() >= 2 }" class="fa"></span>
+                                <span data-bind="css: { 'fa-star-o': Title() < 3, 'fa-star': Title() >= 3 }" class="fa"></span>
+                                <span data-bind="css: { 'fa-star-o': Title() < 4, 'fa-star': Title() >= 4 }" class="fa"></span>
+                                <span data-bind="css: { 'fa-star-o': Title() < 5, 'fa-star': Title() >= 5 }" class="fa"></span>
+                            </span>
+                            <!-- /ko -->
+                        </span>
+                    </div>
+                    <div data-bind="visible: Expanded, template: { name:'navigation-item-template', foreach: Children }" class="tree-item-children"></div>
+                </script>
+                <div data-bind="template: { name:'navigation-item-template', foreach: items }" class="tree"></div>
+            </div>
+            <div class="column full-height splitter splitter-left"></div>
+            <div class="column full-height scrolable" id="preview">
+                <div data-bind="visible: previewProgress() >= 0" class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-info active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" data-bind="style: {width: (previewProgress() + '%')}, text: (previewProgress() + '%')" style="width: 100%;">
+                        100%
+                    </div>
+                </div>
+                <div data-bind="ifnot: singleImageMode">
+                    <div data-bind="foreach: images">
+                        <img style="max-width: 512px; max-height: 512px; margin: 2px;" data-bind="click: function(){ $root.selectItem($data.Id); }, attr: {src: 'http://images/' + ThumbnailPath}" />
+
+                    </div>
+                </div>
+                <div data-bind="if: singleImageMode, css:{'full-height': singleImageMode}">
+                    <img style="max-width: 100%; max-height: 100%;" data-bind="attr: {src: 'http://images/' + images()[0].ImagePath}" />
+                </div>
+            </div>
+            <div class="column full-height splitter splitter-right">
+            </div>
+            <div class="column full-height scrolable" id="properties">
+                <table class="table table-condensed">
+                    <tbody>
+                        <tr data-bind="visible: images().length > 0">
+                            <td data-bind="local: 'Title'"></td>
+                            <td><input type="text" data-bind="value: title, event: {change: function(d,e){ setTitle(e.currentTarget.value); }}" /></td>
+                        </tr>
+                        <tr data-bind="visible: images().length > 0">
+                            <td data-bind="local: 'Author'"></td>
+                            <td><input type="text" data-bind="value: author, event: {change: function(d,e){ setAuthor(e.currentTarget.value); }}" /></td>
+                        </tr>
+                        <tr data-bind="visible: images().length > 0">
+                            <td data-bind="local: 'Raiting'"></td>
+                            <td>
+                                <div>
+                                    <div class="raiting">
+                                        <div data-bind="click: function(){ $root.setRaiting(1); }"><span data-bind="css: { 'fa-star-o': raiting() < 1, 'fa-star': raiting() >= 1 }" class="fa"></span></div>
+                                        <div data-bind="click: function(){ $root.setRaiting(2); }"><span data-bind="css: { 'fa-star-o': raiting() < 2, 'fa-star': raiting() >= 2 }" class="fa"></span></div>
+                                        <div data-bind="click: function(){ $root.setRaiting(3); }"><span data-bind="css: { 'fa-star-o': raiting() < 3, 'fa-star': raiting() >= 3 }" class="fa"></span></div>
+                                        <div data-bind="click: function(){ $root.setRaiting(4); }"><span data-bind="css: { 'fa-star-o': raiting() < 4, 'fa-star': raiting() >= 4 }" class="fa"></span></div>
+                                        <div data-bind="click: function(){ $root.setRaiting(5); }"><span data-bind="css: { 'fa-star-o': raiting() < 5, 'fa-star': raiting() >= 5 }" class="fa"></span></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- ko foreach: properties-->
+                        <tr>
+                            <td data-bind="local: title"></td>
+                            <td data-bind="text: value"></td>
+                        </tr>
+                        <!-- /ko -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
+            ko.applyBindings(new MainViewModel(), document.getElementById("root"));
+        });
+    </script>
+</body>
+</html>

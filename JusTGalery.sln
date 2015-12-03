@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JusTGalery", "JusTGalery\JusTGalery.csproj", "{099F39A7-CB8F-49CC-B525-DDF0DD8BFC26}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{D4378D84-596B-4A71-8FFF-6146240387F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{099F39A7-CB8F-49CC-B525-DDF0DD8BFC26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{099F39A7-CB8F-49CC-B525-DDF0DD8BFC26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{099F39A7-CB8F-49CC-B525-DDF0DD8BFC26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{099F39A7-CB8F-49CC-B525-DDF0DD8BFC26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4378D84-596B-4A71-8FFF-6146240387F0}.Debug|Any CPU.ActiveCfg = Debug
+		{D4378D84-596B-4A71-8FFF-6146240387F0}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

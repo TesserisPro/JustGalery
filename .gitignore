@@ -1,0 +1,8 @@
+JusTGalery/bin
+JusTGalery/debug.log
+JusTGalery/bin.js.map
+.suo
+JusTGalery/obj
+packages/
+Setup/Debug/
+Setup/Release/

@@ -1,0 +1,442 @@
+﻿html {
+    height: 100%;
+}
+
+body {
+    background-color: #1a1a1a;
+    overflow: hidden;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    height: 100%;
+    color: whitesmoke;
+    font-family: 'Segoe UI';
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th,
+.table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    border-top: 1px solid #3a3a3a;
+}
+
+.btn-default {
+    background-color: #3a3a3a;
+    color: gray;
+    border-color: gray;
+}
+
+    .btn-default:hover {
+        background-color: #4f4f4f;
+        color: lightgray;
+        border-color: lightgray;
+    }
+
+    .btn-default.selected {
+        background-color: #4f4f4f;
+        color: lightgray;
+        border-color: lightgray;
+    }
+
+.btn:hover .fa-sign-out {
+    color: #ff6a00;
+}
+
+.btn:hover .fa-arrows-alt {
+    color: cornflowerblue;
+}
+
+.btn .fa-trash-o {
+    font-size: 32px !important;
+}
+
+.btn:hover .fa-trash-o {
+    color: orangered;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #2a2a2a;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #3a3a3a;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #2a2a2a;
+}
+
+.list-group-item {
+    background-color: #3a3a3a;
+    color: whitesmoke;
+}
+
+#root {
+    background-color: #1a1a1a;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    min-width: 640px;
+    position: relative;
+}
+
+#ribbon{
+    white-space: nowrap;
+}
+
+#ribbon .nav > li > a {
+    padding: 2px;
+    width: 100px;
+    text-align: center;
+    color: gray;
+    outline: none;
+}
+
+#ribbon .nav > li.active > a {
+    background-color: #3a3a3a;
+    color: whitesmoke;
+    border-color: #3a3a3a;
+}
+
+#ribbon .nav > li:hover > a {
+    background-color: #4a4a4a;
+    color: whitesmoke;
+    border-color: #3a3a3a;
+}
+
+#ribbon .tab-content {
+    background-color: #3a3a3a;
+}
+
+#ribbon .nav-tabs {
+    border-bottom: none;
+}
+
+    #ribbon .nav-tabs > li {
+        margin-bottom: -2px;
+    }
+
+#ribbon .tab-content {
+    height: 88px;
+}
+
+#ribbon .tab-pane > section {
+    border-right: 1px solid gray;
+    display: inline-block;
+    margin-top: 4px;
+    padding: 0px 6px;
+    height: 82px;
+    vertical-align: top;
+    position: relative;
+    min-width: 75px;
+}
+
+    #ribbon .tab-pane > section > header {
+        color: lightgray;
+        font-size: 10px;
+        text-align: center;
+        position: absolute;
+        bottom: 1px;
+        width: 100%;
+        margin-left: -6px;
+    }
+
+#ribbon .tab-content .btn {
+    width: 58px;
+    height: 64px;
+    margin: 2px;
+    position: relative;
+}
+
+    #ribbon .tab-content .btn > .glyphicon,
+    #ribbon .tab-content .btn > .fa {
+        display: block;
+        font-size: 24px;
+        top: 4px;
+        left: 0;
+        right: 0;
+        position: absolute;
+        text-align: center;
+    }
+
+    #ribbon .tab-content .btn > header {
+        bottom: 1px;
+        left: 1px;
+        right: 1px;
+        position: absolute;
+        font-size: 11px;
+        text-align: center;
+        font-family: Segoe UI;
+        white-space: normal;
+    }
+
+#content {
+    position: absolute;
+    top: 110px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#navigation {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    width: 250px;
+}
+
+#preview {
+    position: absolute;
+    left: 260px;
+    right: 360px;
+    bottom: 0;
+    top: 0;
+    text-align: center;
+}
+
+#properties {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 350px;
+}
+
+    #properties table td:first-child {
+        width: 140px;
+    }
+
+    #properties input {
+        border: 1px solid transparent;
+        background-color: transparent;
+        color: lightgray;
+        padding: 0 4px;
+        width: 100%;
+    }
+
+    #properties input:hover {
+        outline: none;
+        border: 1px solid orange;
+    }
+
+    #properties input:focus {
+        outline: none;
+        border: 1px solid orange;
+    }
+
+
+.splitter {
+    position: absolute;
+    width: 10px;
+    display: inline-block;
+    background: #3a3a3a;
+    vertical-align: top;
+    cursor: ew-resize;
+}
+
+.full-height {
+    height: 100%;
+}
+
+.scrolable {
+    overflow: auto;
+}
+
+.column {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.tree-item-header {
+    white-space: nowrap;
+    cursor: default;
+}
+
+    .tree-item-header .selection {
+        display: none;
+    }
+
+    .tree-item-header .header {
+        z-index: 1;
+        position: relative;
+        display: inline-block;
+        height: 24px;
+        padding-top: 2px;
+        width: 100%;
+    }
+
+    .tree-item-header.selected .selection {
+        display: inline-block !important;
+        height: 24px;
+        background-color: #3a3a3a;
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
+
+    .tree-item-header:hover .selection {
+        display: inline-block !important;
+        height: 24px;
+        background-color: #2a2a2a;
+        position: absolute;
+        left: 0;
+        right: 0;
+    }
+
+    .tree-item-header .glyphicon-plus,
+    .tree-item-header .glyphicon-minus {
+        font-size: 10px;
+        margin-left: -14px;
+        color: gray;
+        z-index: 1;
+    }
+
+    .tree-item-header .glyphicon-folder-open {
+        color: cornflowerblue;
+        font-size: 14px;
+    }
+
+    .tree-item-header .glyphicon-folder-star {
+        color: #b14a00;
+        font-size: 14px;
+    }
+
+    .tree-item-header .glyphicon-file {
+        color: #97d5ff;
+        font-size: 14px;
+    }
+
+    .tree-item-header .glyphicon-plus:hover,
+    .tree-item-header .glyphicon-minus:hover {
+        color: whitesmoke;
+    }
+
+.tree-item-children {
+    margin-left: 14px;
+}
+
+.tree {
+    overflow: auto;
+    height: 100%;
+    padding-left: 16px;
+    position: relative;
+}
+
+.raiting {
+    font-size: 14px;
+    color: #ff6a00;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: default;
+}
+
+    .raiting .fa-star-o {
+        color: gray;
+    }
+
+    .raiting:hover .fa-star-o {
+        color: orange;
+    }
+
+    .raiting div {
+        display: inline;
+        margin-right: 2px;
+    }
+
+.label-tag {
+    border: 1px solid gray;
+    color: gray;
+    font-style: normal;
+    border-radius: 0;
+    cursor: default;
+    padding: 2px 8px 3px 8px;
+}
+
+    .label-tag:hover {
+        border: 1px solid orange;
+        color: lightgray;
+        font-style: normal;
+        border-radius: 0;
+    }
+
+.tag-container .label-tag {
+    margin: 2px;
+    font-size: 12px;
+}
+
+.tag-container .fa-tag {
+    margin-right: 2px;
+    margin-left: -2px;
+}
+
+.tag-container .fa-remove {
+    margin-right: -2px;
+    margin-left: 4px;
+}
+
+.label-tag:hover .fa-remove {
+    color: orangered;
+}
+
+.label-tag:hover .fa-tag {
+    color: cornflowerblue;
+}
+
+.tag-container {
+    display: inline;
+}
+
+.tag-input {
+    background-color: #3a3a3a;
+    border: 1px solid gray;
+    color: gray;
+    outline: none;
+    display: inline;
+    padding: 0px 2px 2px 2px;
+    font-size: 13px;
+    width: 120px;
+}
+
+    .tag-input:focus {
+        background-color: #3a3a3a;
+        border: 1px solid orange;        
+        outline: none;
+    }
+
+     .tag-input:hover {
+        background-color: #3a3a3a;
+        border: 1px solid orange;        
+        outline: none;
+    }
+
+.progress-container{ 
+    display: inline-block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: rgba(58, 58, 58, 0.43);
+}
+
+.progress{
+    background-color: #3a3a3a;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.progress-container .progress{
+    bottom: 50%;
+    left: 25%;
+    right: 25%;
+    position: absolute;
+}
+
+.progress-bar{
+    transition: none;
+}
