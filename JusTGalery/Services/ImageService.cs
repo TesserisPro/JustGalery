@@ -4,6 +4,7 @@ using LightStack.LightDesk.Services;
 using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -168,13 +169,31 @@ namespace JusTGalery.Services
 
                     using (var stream = new FileStream(pathToFile, FileMode.Open, FileAccess.Read, FileShare.Read))
                     {
-                        var imageFile = ExifLibrary.ImageFile.FromStream(stream);
-                        imageFile.Thumbnail = null;
-                        var image = imageFile.ToImage();
-                        var scale = 512.0 / ((double)image.Width);
-                        var height = (int)(((double)image.Height) * scale);
-                        var thumbImage = imageFile.ToImage().GetThumbnailImage(512, height, null, IntPtr.Zero);
-                        thumbImage.Save(pathToThumb, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        using (var image = System.Drawing.Bitmap.FromStream(stream))
+                        {
+                            var scale = 1.0;
+                            var width = 512;
+                            var height = 512;
+                            if (image.Width > image.Height)
+                            {
+                                scale = 512.0 / ((double)image.Width);
+                                height = (int)(((double)image.Height) * scale);
+                            }
+                            else
+                            {
+                                scale = 512.0 / ((double)image.Height);
+                                width = (int)(((double)image.Width) * scale);
+                            }
+
+                            using (var thumbImage = new Bitmap(width, height))
+                            {
+                                using (var g = Graphics.FromImage(thumbImage))
+                                {
+                                    g.DrawImage(image, 0, 0, width, height);
+                                }
+                                thumbImage.Save(pathToThumb, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            }
+                        }
                     }
                 }
 
